@@ -218,7 +218,7 @@
         🏥
        </div>
        <h2 id="welcome-message" style="font-size: 28px; font-weight: bold; color: #1e293b; margin: 0 0 14px 0; line-height: 1.3;">ประเมินศักยภาพสุขภาพดิจิทัลของคุณ</h2>
-       <p style="color: #64748b; font-size: 17px; margin: 0 0 8px 0;">แบบประเมิน 10 ข้อ 6 ด้านตามกรอบ Norman &amp; Skinner</p>
+       <p style="color: #64748b; font-size: 17px; margin: 0 0 8px 0;">แบบประเมิ��� 10 ข้อ 6 ด้านตามกรอบ Norman &amp; Skinner</p>
        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 16px;"><span class="category-badge" style="background: #dbeafe; color: #1e40af;">💻 Digital Literacy</span> <span class="category-badge" style="background: #fef3c7; color: #92400e;">🔍 Information Literacy</span> <span class="category-badge" style="background: #dcfce7; color: #166534;">🏥 Health Literacy</span> <span class="category-badge" style="background: #fce7f3; color: #9f1239;">💬 Communication</span> <span class="category-badge" style="background: #f3e8ff; color: #6b21a8;">🧠 Critical Thinking</span> <span class="category-badge" style="background: #ffedd5; color: #9a3412;">🔒 Privacy &amp; Security</span>
        </div>
       </div><!-- Progress Bar -->
@@ -229,19 +229,10 @@
         <div id="progress-bar" class="progress-bar" style="background: linear-gradient(90deg, #3b82f6, #8b5cf6); height: 100%; width: 0%; border-radius: 7px;"></div>
        </div>
       </div>
-     </div><!-- Student Info Form -->
+     </div><!-- Questions Section -->
      <form id="student-form">
-      <div class="fade-in" style="background: white; padding: 36px; border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); margin-bottom: 32px;">
-       <h3 style="font-size: 22px; font-weight: bold; color: #1e293b; margin: 0 0 24px 0; display: flex; align-items: center; gap: 10px;"><span style="font-size: 28px;">📝</span> ข้อมูลนักเรียน</h3>
-       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-        <div><label for="student-id" style="display: block; color: #475569; font-weight: 600; margin-bottom: 10px; font-size: 15px;">รหัสนักเรียน *</label> <input type="text" id="student-id" required style="width: 100%; padding: 14px; border: 2.5px solid #e2e8f0; border-radius: 10px; font-size: 15px; transition: all 0.2s; font-family: 'Sarabun', sans-serif;" onfocus="this.style.borderColor='#3b82f6'; this.style.boxShadow='0 0 0 3px rgba(59,130,246,0.1)'" onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'">
-        </div>
-        <div><label for="class-level" style="display: block; color: #475569; font-weight: 600; margin-bottom: 10px; font-size: 15px;">ระดับชั้น *</label> <select id="class-level" required style="width: 100%; padding: 14px; border: 2.5px solid #e2e8f0; border-radius: 10px; font-size: 15px; background: white; cursor: pointer; font-family: 'Sarabun', sans-serif; transition: all 0.2s;" onfocus="this.style.borderColor='#3b82f6'; this.style.boxShadow='0 0 0 3px rgba(59,130,246,0.1)'" onblur="this.style.borderColor='#e2e8f0'; this.style.boxShadow='none'"> <option value="">เลือกระดับชั้น</option> <option value="ม.1">มัธยมศึกษาปีที่ 1</option> <option value="ม.2">มัธยมศึกษาปีที่ 2</option> <option value="ม.3">มัธยมศึกษาปีที่ 3</option> <option value="ม.4">มัธยมศึกษาปีที่ 4</option> <option value="ม.5">มัธยมศึกษาปีที่ 5</option> <option value="ม.6">มัธยมศึกษาปีที่ 6</option> </select>
-        </div>
-       </div>
-      </div><!-- Questions Section -->
       <div id="questions-container"></div><!-- Submit Button -->
-      <div style="background: white; padding: 32px; border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); text-align: center;"><button type="submit" id="submit-btn" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; padding: 18px 56px; border: none; border-radius: 14px; font-size: 20px; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 12px rgba(59,130,246,0.3);" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 10px 30px rgba(59,130,246,0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 12px rgba(59,130,246,0.3)'"> ส่งแบบประเมิน 🚀 </button>
+      <div style="background: white; padding: 32px; border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); text-align: center;"><button type="submit" id="submit-btn" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; padding: 18px 56px; border: none; border-radius: 14px; font-size: 20px; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 12px rgba(59,130,246,0.3);" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 10px 30px rgba(59,130,246,0.5)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 12px rgba(59,130,246,0.3)'"> ส่งแบบป��ะเมิน 🚀 </button>
       </div>
      </form>
     </main>
@@ -263,7 +254,7 @@
          👥
         </div>
         <div>
-         <p style="color: #64748b; font-size: 15px; margin: 0; font-weight: 600;">จำนวนนักเรียนทั้งหมด</p>
+         <p style="color: #64748b; font-size: 15px; margin: 0; font-weight: 600;">จำนวนนักเรียนทั้งหม��</p>
          <p id="dash-total" style="font-size: 40px; font-weight: bold; color: #1e293b; margin: 10px 0 0 0;">0</p>
         </div>
        </div>
@@ -321,7 +312,7 @@
       system_title: "Student E-Health Profile Dashboard",
       institution_name: '"แฟ้มสะสม (Portfolio) สุขภาพดิจิทัลส่วนตัวแบบอัตโนมัติ"',
       welcome_message: "ประเมินศักยภาพสุขภาพดิจิทัลของคุณ",
-      good_recommendation: "🎉 ยอดเยี่ยม! คุณมีทักษะ E-Health Literacy ที่ดีมาก สามารถค้นหา ประเมิน และใช้ข้อมูลสุขภาพดิจิทัลได้อย่างมีประสิทธิภาพ แนะนำให้ช่วยเหลือเพื่อนที่ต้องการพัฒนาทักษะ และใช้ความรู้นี้ในการดูแลสุขภาพของตัวเองและครอบครัว",
+      good_recommendation: "🎉 ยอดเยี่ย���! คุณมีทักษะ E-Health Literacy ที่ดีมาก สามารถค้นหา ประเมิน และใช้ข้อมูลสุขภาพดิจิทัลได้��ย่างมีประสิทธิภาพ แนะนำ��ห้ช่วยเหลือเพื่อนที่ต้องการพัฒนาทักษะ และใช้ความรู้นี้ในการดูแลสุขภาพของตัวเองและครอบครัว",
       medium_recommendation: "💪 ดีมาก! คุณมีพื้นฐานที่ดี แต่ยังมีโอกาสพัฒนาเพิ่มเติม แนะนำให้ฝึกฝนทักษะการประเมินความน่าเชื่อถือของแหล่งข้อมูลสุขภาพ และการคิดวิเคราะห์อย่างมีวิจารณญาณ ลองค้นคว้าข้อมูลสุขภาพจากแหล่งที่น่าเชื่อถือเพิ่มเติม เช่น เว็บไซต์กระทรวงสาธารณสุข หรือสถาบันการแพทย์ชั้นนำ",
       risk_recommendation: "⚠️ ควรให้ความสำคัญ! คุณอาจต้องการความช่วยเหลือในการพัฒนาทักษะ E-Health Literacy แนะนำให้ปรึกษาครู ผู้ปกครอง หรือเข้าร่วมโปรแกรมพัฒนาทักษะเพื่อเพิ่มความรู้และความมั่นใจในการใช้ข้อมูลสุขภาพดิจิทัล เริ่มต้นจากการเรียนรู้เครื่องมือค้นหาข้อมูลสุขภาพที่เชื่อถือได้ และฝึกการตั้งคำถามเมื่อพบข้อมูลที่ไม่แน่ใจ",
       footer_text: "E-Health Literacy Assessment System - พัฒนาตามกรอบ Norman & Skinner",
@@ -352,7 +343,7 @@
       { 
         category: "Information Literacy", 
         emoji: "🔍",
-        question: "ฉันสามารถค้นหาข้อมูลสุขภาพที่น่าเชื่อถือจากอินเทอร์เน็ตได้",
+        question: "ฉันสาม���รถค้นหาข้อมูลสุขภาพที่น่าเชื่อถือจากอินเทอร์เน็ตได้",
         categoryName: "information_literacy_score",
         categoryColor: "#92400e",
         categoryBg: "#fef3c7"
@@ -368,7 +359,7 @@
       { 
         category: "Health Literacy", 
         emoji: "🏥",
-        question: "ฉันเข้าใจคำศัพท์ทางการแพทย์และสุขภาพที่พบในเว็บไซต์หรือแอปพลิเคชัน",
+        question: "ฉันเข้าใจคำศัพท์ทางการแพทย์และสุขภาพที่พบในเว็บ���ซต์หรือแอปพลิเคชัน",
         categoryName: "health_literacy_score",
         categoryColor: "#166534",
         categoryBg: "#dcfce7"
@@ -392,7 +383,7 @@
       { 
         category: "Critical Thinking", 
         emoji: "🧠",
-        question: "ฉันตั้งคำถามและไตร่ตรองก่อนเชื่อข้อมูลสุขภาพที่พบออนไลน์",
+        question: "ฉันตั้งคำถาม��ละไตร่ตรองก่อนเชื่อข้อมูลสุขภาพที่พบออนไลน์",
         categoryName: "critical_thinking_score",
         categoryColor: "#6b21a8",
         categoryBg: "#f3e8ff"
@@ -593,14 +584,14 @@
 
         let risk_level = 'ดี';
         if (overall_score < 50) {
-          risk_level = 'เสี่ยง';
+          risk_level = 'เส��่ยง';
         } else if (overall_score < 70) {
           risk_level = 'ควรพัฒนา';
         }
 
         const assessmentData = {
-          student_id: document.getElementById('student-id').value,
-          class_level: document.getElementById('class-level').value,
+          student_id: 'USER-' + Date.now(),
+          class_level: '-',
           assessment_date: new Date().toISOString(),
           ...scores,
           ...categoryScores,
@@ -666,7 +657,7 @@
             <div style="text-align: center;">
               <div style="font-size: 72px; margin-bottom: 20px;">🎉</div>
               <h2 style="font-size: 32px; font-weight: bold; margin: 0 0 12px 0;">ส่งแบบประเมินสำเร็จ!</h2>
-              <p style="opacity: 0.95; margin: 0; font-size: 20px; font-weight: 600;">รหัส: ${data.student_id} | ชั้น: ${data.class_level}</p>
+              <p style="opacity: 0.95; margin: 0; font-size: 20px; font-weight: 600;">รหัส: ${data.student_id} | ���ั้น: ${data.class_level}</p>
               <p style="opacity: 0.9; margin: 8px 0 0 0; font-size: 16px;">วันที่: ${new Date(data.assessment_date).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
             </div>
             
@@ -787,7 +778,7 @@
           <div style="text-align: center; padding: 80px 20px; color: #94a3b8;">
             <div style="font-size: 56px; margin-bottom: 20px;">📋</div>
             <p style="font-size: 20px; margin: 0; font-weight: 600;">ยังไม่มีข้อมูลการประเมิน</p>
-            <p style="font-size: 16px; margin: 12px 0 0 0;">เริ่มต้นทำแบบประเมินเพื่อสร้างแฟ้มสะสมสุขภาพดิจิทัล</p>
+            <p style="font-size: 16px; margin: 12px 0 0 0;">เริ่มต้นทำแบบประเมิน���พื่อสร้างแ���้มสะสมสุขภาพดิจิทัล</p>
           </div>
         `;
         return;
@@ -801,7 +792,7 @@
                 <th style="padding: 18px; text-align: left; font-weight: 700; color: #1e293b; font-size: 15px;">รหัสนักเรียน</th>
                 <th style="padding: 18px; text-align: left; font-weight: 700; color: #1e293b; font-size: 15px;">ระดับชั้น</th>
                 <th style="padding: 18px; text-align: center; font-weight: 700; color: #1e293b; font-size: 15px;">คะแนนรวม</th>
-                <th style="padding: 18px; text-align: center; font-weight: 700; color: #1e293b; font-size: 15px;">ระดับ</th>
+                <th style="padding: 18px; text-align: center; font-weight: 700; color: #1e293b; font-size: 15px;">ร��ดับ</th>
                 <th style="padding: 18px; text-align: center; font-weight: 700; color: #1e293b; font-size: 15px;">วันที่ประเมิน</th>
                 <th style="padding: 18px; text-align: center; font-weight: 700; color: #1e293b; font-size: 15px;">จัดการ</th>
               </tr>
@@ -895,5 +886,5 @@
 
     init();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a886a5901bbce9b',t:'MTc2NDgyMTAyMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a886c3e85e8ce9b',t:'MTc2NDgyMTA5OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
