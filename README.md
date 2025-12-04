@@ -104,16 +104,41 @@
     }
     
     .score-circle {
-      width: 120px;
-      height: 120px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
       background: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 36px;
+      font-size: 42px;
       font-weight: bold;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .recommendation-box {
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 24px;
+      backdrop-filter: blur(10px);
+    }
+
+    .risk-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 14px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
     }
   </style>
   <style>@view-transition { navigation: auto; }</style>
@@ -134,7 +159,7 @@
         🏥
        </div>
        <h2 id="welcome-message" style="font-size: 24px; font-weight: bold; color: #1e293b; margin: 0 0 12px 0;">ประเมินศักยภาพสุขภาพดิจิทัลของคุณ</h2>
-       <p style="color: #64748b; font-size: 16px; margin: 0;">แบบประเมิน 6 ด้านตามกรอบ Norman &amp; Skinner</p>
+       <p style="color: #64748b; font-size: 16px; margin: 0;">แบบประเมิน 10 ข้อ 6 ด้านตามกรอบ Norman &amp; Skinner</p>
       </div><!-- Progress Bar -->
       <div style="margin: 24px 0;">
        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span style="font-size: 14px; color: #64748b;">ความคืบหน้า</span> <span id="progress-text" style="font-size: 14px; font-weight: 600; color: #3b82f6;">0%</span>
@@ -230,8 +255,8 @@
      </div>
     </main>
    </div>
-   <footer id="footer-text" style="background: rgba(255,255,255,0.1); color: white; text-align: center; padding: 24px; margin-top: 48px;">
-    <p style="margin: 0; font-size: 14px;">E-Health Literacy Assessment System - พัฒนาตามกรอบ Norman &amp; Skinner</p>
+   <footer style="background: rgba(255,255,255,0.1); color: white; text-align: center; padding: 24px; margin-top: 48px;">
+    <p id="footer-text" style="margin: 0; font-size: 14px;">E-Health Literacy Assessment System - พัฒนาตามกรอบ Norman &amp; Skinner</p>
    </footer>
   </div>
   <script>
@@ -239,6 +264,9 @@
       system_title: "Student E-Health Profile Dashboard",
       institution_name: "แบบประเมินศักยภาพสุขภาพดิจิทัล",
       welcome_message: "ประเมินศักยภาพสุขภาพดิจิทัลของคุณ",
+      good_recommendation: "🎉 ยอดเยี่ยม! คุณมีทักษะ E-Health Literacy ที่ดีมาก สามารถค้นหา ประเมิน และใช้ข้อมูลสุขภาพดิจิทัลได้อย่างมีประสิทธิภาพ แนะนำให้ช่วยเหลือเพื่อนที่ต้องการพัฒนาทักษะ",
+      medium_recommendation: "💪 ดีมาก! คุณมีพื้นฐานที่ดี แต่ยังมีโอกาสพัฒนาเพิ่มเติม แนะนำให้ฝึกฝนทักษะการประเมินความน่าเชื่อถือของแหล่งข้อมูล และการคิดวิเคราะห์อย่างมีวิจารณญาณ",
+      risk_recommendation: "⚠️ ควรให้ความสำคัญ! คุณอาจต้องการความช่วยเหลือในการพัฒนาทักษะ E-Health Literacy แนะนำให้ปรึกษาครู ผู้ปกครอง หรือเข้าร่วมโปรแกรมพัฒนาทักษะเพื่อเพิ่มความรู้และความมั่นใจในการใช้ข้อมูลสุขภาพดิจิทัล",
       footer_text: "E-Health Literacy Assessment System - พัฒนาตามกรอบ Norman & Skinner",
       background_color: "#667eea",
       card_color: "#ffffff",
@@ -248,53 +276,65 @@
     };
 
     const questions = [
-      {
-        category: "Digital Literacy (ความรอบรู้ดิจิทัล)",
+      { 
+        category: "Digital Literacy", 
         emoji: "💻",
-        questions: [
-          "ฉันสามารถใช้อุปกรณ์ดิจิทัล (สมาร์ทโฟน/แท็บเล็ต/คอมพิวเตอร์) ในการค้นหาข้อมูลสุขภาพได้",
-          "ฉันรู้วิธีดาวน์โหลดและติดตั้งแอปพลิเคชันสุขภาพบนสมาร์ทโฟน"
-        ]
+        question: "ฉันสามารถใช้อุปกรณ์ดิจิทัล (สมาร์ทโฟน/แท็บเล็ต/คอมพิวเตอร์) ในการค้นหาข้อมูลสุขภาพได้อย่างมั่นใจ",
+        categoryName: "digital_literacy_score"
       },
-      {
-        category: "Information Literacy (ความรอบรู้สารสนเทศ)",
-        emoji: "🔍",
-        questions: [
-          "ฉันสามารถค้นหาข้อมูลสุขภาพที่น่าเชื่อถือจากอินเทอร์เน็ตได้",
-          "ฉันรู้วิธีประเมินความน่าเชื่อถือของเว็บไซต์ข้อมูลสุขภาพ"
-        ]
-      },
-      {
-        category: "Health Literacy (ความรอบรู้สุขภาพ)",
-        emoji: "🏥",
-        questions: [
-          "ฉันเข้าใจคำศัพท์ทางการแพทย์และสุขภาพที่พบในเว็บไซต์",
-          "ฉันสามารถนำข้อมูลสุขภาพที่ได้ไปใช้ในชีวิตประจำวันได้"
-        ]
-      },
-      {
-        category: "Science Literacy (ความรอบรู้วิทยาศาสตร์)",
-        emoji: "🔬",
-        questions: [
-          "ฉันเข้าใจหลักการทางวิทยาศาสตร์ที่เกี่ยวข้องกับข้อมูลสุขภาพ",
-          "ฉันสามารถแยกแยะข้อมูลสุขภาพที่มีหลักฐานทางวิทยาศาสตร์และไม่มีหลักฐาน"
-        ]
-      },
-      {
-        category: "Media Literacy (ความรอบรู้สื่อ)",
+      { 
+        category: "Digital Literacy", 
         emoji: "📱",
-        questions: [
-          "ฉันระมัดระวังในการแชร์ข้อมูลสุขภาพบนโซเชียลมีเดีย",
-          "ฉันตระหนักถึงข้อมูลสุขภาพที่เป็นเท็จ (Fake News) บนสื่อออนไลน์"
-        ]
+        question: "ฉันรู้วิธีดาวน์โหลดและใช้งานแอปพลิเคชันสุขภาพบนสมาร์ทโฟนได้",
+        categoryName: "digital_literacy_score"
       },
-      {
-        category: "Critical Thinking (ความคิดวิเคราะห์)",
+      { 
+        category: "Information Literacy", 
+        emoji: "🔍",
+        question: "ฉันสามารถค้นหาข้อมูลสุขภาพที่น่าเชื่อถือจากอินเทอร์เน็ตได้",
+        categoryName: "information_literacy_score"
+      },
+      { 
+        category: "Information Literacy", 
+        emoji: "✅",
+        question: "ฉันรู้วิธีประเมินความน่าเชื่อถือของเว็บไซต์ข้อมูลสุขภาพ",
+        categoryName: "information_literacy_score"
+      },
+      { 
+        category: "Health Literacy", 
+        emoji: "🏥",
+        question: "ฉันเข้าใจคำศัพท์ทางการแพทย์และสุขภาพที่พบในเว็บไซต์หรือแอปพลิเคชัน",
+        categoryName: "health_literacy_score"
+      },
+      { 
+        category: "Communication Literacy", 
+        emoji: "💬",
+        question: "ฉันสามารถสื่อสารเรื่องสุขภาพกับผู้อื่นผ่านช่องทางออนไลน์ได้อย่างเหมาะสม",
+        categoryName: "communication_literacy_score"
+      },
+      { 
+        category: "Communication Literacy", 
+        emoji: "📤",
+        question: "ฉันระมัดระวังในการแชร์ข้อมูลสุขภาพส่วนตัวบนโซเชียลมีเดีย",
+        categoryName: "communication_literacy_score"
+      },
+      { 
+        category: "Critical Thinking", 
         emoji: "🧠",
-        questions: [
-          "ฉันตั้งคำถามและไตร่ตรองก่อนเชื่อข้อมูลสุขภาพที่พบออนไลน์",
-          "ฉันเปรียบเทียบข้อมูลจากหลายแหล่งก่อนตัดสินใจเรื่องสุขภาพ"
-        ]
+        question: "ฉันตั้งคำถามและไตร่ตรองก่อนเชื่อข้อมูลสุขภาพที่พบออนไลน์",
+        categoryName: "critical_thinking_score"
+      },
+      { 
+        category: "Critical Thinking", 
+        emoji: "⚖️",
+        question: "ฉันเปรียบเทียบข้อมูลจากหลายแหล่งก่อนตัดสินใจเรื่องสุขภาพ",
+        categoryName: "critical_thinking_score"
+      },
+      { 
+        category: "Privacy & Security", 
+        emoji: "🔒",
+        question: "ฉันเข้าใจและระวังเรื่องความปลอดภัยของข้อมูลส่วนตัวเมื่อใช้บริการสุขภาพออนไลน์",
+        categoryName: "privacy_security_score"
       }
     ];
 
@@ -314,7 +354,7 @@
       document.getElementById('system-title').textContent = config.system_title || defaultConfig.system_title;
       document.getElementById('institution-name').textContent = config.institution_name || defaultConfig.institution_name;
       document.getElementById('welcome-message').textContent = config.welcome_message || defaultConfig.welcome_message;
-      document.getElementById('footer-text').querySelector('p').textContent = config.footer_text || defaultConfig.footer_text;
+      document.getElementById('footer-text').textContent = config.footer_text || defaultConfig.footer_text;
       
       const bgColor = config.background_color || defaultConfig.background_color;
       const primaryColor = config.primary_button_color || defaultConfig.primary_button_color;
@@ -384,6 +424,9 @@
             ["system_title", config.system_title || defaultConfig.system_title],
             ["institution_name", config.institution_name || defaultConfig.institution_name],
             ["welcome_message", config.welcome_message || defaultConfig.welcome_message],
+            ["good_recommendation", config.good_recommendation || defaultConfig.good_recommendation],
+            ["medium_recommendation", config.medium_recommendation || defaultConfig.medium_recommendation],
+            ["risk_recommendation", config.risk_recommendation || defaultConfig.risk_recommendation],
             ["footer_text", config.footer_text || defaultConfig.footer_text]
           ])
         });
@@ -400,40 +443,34 @@
 
     function renderQuestions() {
       const container = document.getElementById('questions-container');
-      let questionIndex = 1;
       
-      container.innerHTML = questions.map((section, sectionIndex) => {
+      container.innerHTML = questions.map((q, index) => {
+        const questionNum = index + 1;
         return `
           <div class="fade-in question-card" style="background: white; padding: 32px; border-radius: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); margin-bottom: 24px;">
-            <h3 style="font-size: 20px; font-weight: bold; color: #1e293b; margin: 0 0 20px 0;">
-              ${section.emoji} ${section.category}
-            </h3>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+              <span style="font-size: 32px;">${q.emoji}</span>
+              <span style="background: #f1f5f9; color: #64748b; padding: 4px 12px; border-radius: 6px; font-size: 13px; font-weight: 600;">${q.category}</span>
+            </div>
             
-            ${section.questions.map((q, qIndex) => {
-              const currentQ = questionIndex++;
-              return `
-                <div style="margin-bottom: ${qIndex === section.questions.length - 1 ? '0' : '24px'}; padding-bottom: ${qIndex === section.questions.length - 1 ? '0' : '24px'}; border-bottom: ${qIndex === section.questions.length - 1 ? 'none' : '1px solid #e2e8f0'};">
-                  <label style="display: block; color: #1e293b; font-weight: 500; margin-bottom: 12px; font-size: 15px;">
-                    ${currentQ}. ${q}
-                  </label>
-                  
-                  <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-                    ${[
-                      { value: 5, label: 'เห็นด้วยอย่างยิ่ง', color: '#10b981' },
-                      { value: 4, label: 'เห็นด้วย', color: '#84cc16' },
-                      { value: 3, label: 'ไม่แน่ใจ', color: '#f59e0b' },
-                      { value: 2, label: 'ไม่เห็นด้วย', color: '#f97316' },
-                      { value: 1, label: 'ไม่เห็นด้วยอย่างยิ่ง', color: '#ef4444' }
-                    ].map(option => `
-                      <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 10px 16px; border: 2px solid #e2e8f0; border-radius: 8px; transition: all 0.2s;" onmouseover="this.style.borderColor='${option.color}'; this.style.background='${option.color}10'" onmouseout="if(!this.querySelector('input').checked) { this.style.borderColor='#e2e8f0'; this.style.background='transparent' }">
-                        <input type="radio" name="q${currentQ}" value="${option.value}" class="radio-custom" required onchange="updateProgress(); this.parentElement.style.borderColor='${option.color}'; this.parentElement.style.background='${option.color}10'">
-                        <span style="font-size: 14px; color: #475569;">${option.label}</span>
-                      </label>
-                    `).join('')}
-                  </div>
-                </div>
-              `;
-            }).join('')}
+            <label style="display: block; color: #1e293b; font-weight: 500; margin-bottom: 16px; font-size: 16px; line-height: 1.6;">
+              ${questionNum}. ${q.question}
+            </label>
+            
+            <div style="display: grid; gap: 12px;">
+              ${[
+                { value: 5, label: 'เห็นด้วยอย่างยิ่ง', color: '#10b981', bg: '#d1fae5' },
+                { value: 4, label: 'เห็นด้วย', color: '#84cc16', bg: '#ecfccb' },
+                { value: 3, label: 'ไม่แน่ใจ', color: '#f59e0b', bg: '#fef3c7' },
+                { value: 2, label: 'ไม่เห็นด้วย', color: '#f97316', bg: '#ffedd5' },
+                { value: 1, label: 'ไม่เห็นด้วยอย่างยิ่ง', color: '#ef4444', bg: '#fee2e2' }
+              ].map(option => `
+                <label style="display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 14px 18px; border: 2px solid #e2e8f0; border-radius: 10px; transition: all 0.2s; background: white;" onmouseover="this.style.borderColor='${option.color}'; this.style.background='${option.bg}'" onmouseout="if(!this.querySelector('input').checked) { this.style.borderColor='#e2e8f0'; this.style.background='white' }">
+                  <input type="radio" name="q${questionNum}" value="${option.value}" class="radio-custom" required onchange="updateProgress(); this.parentElement.style.borderColor='${option.color}'; this.parentElement.style.background='${option.bg}'">
+                  <span style="font-size: 15px; color: #1e293b; font-weight: 500;">${option.label}</span>
+                </label>
+              `).join('')}
+            </div>
           </div>
         `;
       }).join('');
@@ -455,26 +492,26 @@
         submitBtn.disabled = true;
 
         const scores = {};
-        for (let i = 1; i <= 12; i++) {
+        for (let i = 1; i <= 10; i++) {
           const value = document.querySelector(`input[name="q${i}"]:checked`).value;
           scores[`q${i}_score`] = parseInt(value);
         }
 
         const categoryScores = {
-          digital_literacy_score: (scores.q1_score + scores.q2_score) / 2 * 20,
-          information_literacy_score: (scores.q3_score + scores.q4_score) / 2 * 20,
-          health_literacy_score: (scores.q5_score + scores.q6_score) / 2 * 20,
-          science_literacy_score: (scores.q7_score + scores.q8_score) / 2 * 20,
-          media_literacy_score: (scores.q9_score + scores.q10_score) / 2 * 20,
-          critical_thinking_score: (scores.q11_score + scores.q12_score) / 2 * 20
+          digital_literacy_score: ((scores.q1_score + scores.q2_score) / 2) * 20,
+          information_literacy_score: ((scores.q3_score + scores.q4_score) / 2) * 20,
+          health_literacy_score: scores.q5_score * 20,
+          communication_literacy_score: ((scores.q6_score + scores.q7_score) / 2) * 20,
+          critical_thinking_score: ((scores.q8_score + scores.q9_score) / 2) * 20,
+          privacy_security_score: scores.q10_score * 20
         };
 
         const overall_score = (categoryScores.digital_literacy_score + 
                               categoryScores.information_literacy_score + 
                               categoryScores.health_literacy_score + 
-                              categoryScores.science_literacy_score + 
-                              categoryScores.media_literacy_score + 
-                              categoryScores.critical_thinking_score) / 6;
+                              categoryScores.communication_literacy_score + 
+                              categoryScores.critical_thinking_score + 
+                              categoryScores.privacy_security_score) / 6;
 
         let risk_level = 'ดี';
         if (overall_score < 50) {
@@ -513,7 +550,7 @@
     }
 
     function updateProgress() {
-      const totalQuestions = 12;
+      const totalQuestions = 10;
       let answered = 0;
       
       for (let i = 1; i <= totalQuestions; i++) {
@@ -527,19 +564,33 @@
       document.getElementById('progress-text').textContent = Math.round(percentage) + '%';
     }
 
+    function getRecommendation(riskLevel) {
+      const config = window.elementSdk ? window.elementSdk.config : defaultConfig;
+      
+      if (riskLevel === 'ดี') {
+        return config.good_recommendation || defaultConfig.good_recommendation;
+      } else if (riskLevel === 'ควรพัฒนา') {
+        return config.medium_recommendation || defaultConfig.medium_recommendation;
+      } else {
+        return config.risk_recommendation || defaultConfig.risk_recommendation;
+      }
+    }
+
     function showResultModal(data) {
       const modal = document.createElement('div');
-      modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 2000; padding: 20px;';
+      modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 2000; padding: 20px; overflow-y: auto;';
       
-      const riskColor = data.risk_level === 'ดี' ? '#16a34a' : data.risk_level === 'ควรพัฒนา' ? '#ea580c' : '#dc2626';
+      const riskColor = data.risk_level === 'ดี' ? '#10b981' : data.risk_level === 'ควรพัฒนา' ? '#ea580c' : '#dc2626';
+      const riskIcon = data.risk_level === 'ดี' ? '✅' : data.risk_level === 'ควรพัฒนา' ? '⚠️' : '🚨';
+      const recommendation = getRecommendation(data.risk_level);
       
       modal.innerHTML = `
-        <div class="fade-in" style="background: white; border-radius: 20px; max-width: 600px; width: 100%; max-height: 90%; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+        <div class="fade-in" style="background: white; border-radius: 20px; max-width: 700px; width: 100%; max-height: 90%; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
           <div class="result-card">
             <div style="text-align: center;">
               <div style="font-size: 64px; margin-bottom: 16px;">🎉</div>
               <h2 style="font-size: 28px; font-weight: bold; margin: 0 0 8px 0;">ส่งแบบประเมินสำเร็จ!</h2>
-              <p style="opacity: 0.9; margin: 0;">${data.student_name} ${data.student_surname}</p>
+              <p style="opacity: 0.9; margin: 0; font-size: 18px;">${data.student_name} ${data.student_surname}</p>
             </div>
             
             <div style="display: flex; justify-content: center; margin: 32px 0;">
@@ -549,29 +600,41 @@
             </div>
             
             <div style="text-align: center; margin-bottom: 24px;">
-              <div style="display: inline-block; background: white; color: ${riskColor}; padding: 12px 24px; border-radius: 20px; font-weight: 600; font-size: 18px;">
-                ${data.risk_level === 'ดี' ? '✅' : data.risk_level === 'ควรพัฒนา' ? '⚠️' : '🚨'} ${data.risk_level}
+              <div class="risk-badge" style="background: white; color: ${riskColor}; display: inline-flex;">
+                <span style="font-size: 24px;">${riskIcon}</span>
+                <span style="font-size: 20px;">${data.risk_level}</span>
+              </div>
+            </div>
+
+            <!-- Recommendation Box -->
+            <div class="recommendation-box">
+              <div style="display: flex; align-items: start; gap: 12px;">
+                <span style="font-size: 28px;">💡</span>
+                <div>
+                  <h3 style="font-size: 18px; font-weight: bold; margin: 0 0 12px 0;">คำแนะนำ</h3>
+                  <p style="margin: 0; line-height: 1.7; font-size: 15px; opacity: 0.95;">${recommendation}</p>
+                </div>
               </div>
             </div>
           </div>
           
           <div style="padding: 32px;">
-            <h3 style="font-size: 20px; font-weight: bold; color: #1e293b; margin: 0 0 20px 0;">คะแนนรายด้าน</h3>
+            <h3 style="font-size: 20px; font-weight: bold; color: #1e293b; margin: 0 0 20px 0;">📊 คะแนนรายด้าน (6 ด้าน)</h3>
             
             <div style="display: grid; gap: 16px;">
               ${createScoreDetail('💻 Digital Literacy', data.digital_literacy_score)}
               ${createScoreDetail('🔍 Information Literacy', data.information_literacy_score)}
               ${createScoreDetail('🏥 Health Literacy', data.health_literacy_score)}
-              ${createScoreDetail('🔬 Science Literacy', data.science_literacy_score)}
-              ${createScoreDetail('📱 Media Literacy', data.media_literacy_score)}
+              ${createScoreDetail('💬 Communication Literacy', data.communication_literacy_score)}
               ${createScoreDetail('🧠 Critical Thinking', data.critical_thinking_score)}
+              ${createScoreDetail('🔒 Privacy & Security', data.privacy_security_score)}
             </div>
             
-            <div style="margin-top: 32px; display: flex; gap: 12px;">
-              <button onclick="this.closest('div[style*=fixed]').remove(); showDashboardView()" style="flex: 1; background: #3b82f6; color: white; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer;">
+            <div style="margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap;">
+              <button onclick="this.closest('div[style*=fixed]').remove(); showDashboardView()" style="flex: 1; min-width: 200px; background: #3b82f6; color: white; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer;">
                 ดู Dashboard 📊
               </button>
-              <button onclick="this.closest('div[style*=fixed]').remove()" style="flex: 1; background: #64748b; color: white; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer;">
+              <button onclick="this.closest('div[style*=fixed]').remove()" style="flex: 1; min-width: 200px; background: #64748b; color: white; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer;">
                 ปิด
               </button>
             </div>
@@ -586,15 +649,15 @@
     }
 
     function createScoreDetail(label, score) {
-      const color = score >= 70 ? '#16a34a' : score >= 50 ? '#ea580c' : '#dc2626';
+      const color = score >= 70 ? '#10b981' : score >= 50 ? '#ea580c' : '#dc2626';
       return `
         <div>
           <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-            <span style="font-size: 14px; color: #64748b;">${label}</span>
-            <span style="font-size: 14px; font-weight: 600; color: #1e293b;">${Math.round(score)}</span>
+            <span style="font-size: 14px; color: #64748b; font-weight: 500;">${label}</span>
+            <span style="font-size: 15px; font-weight: 700; color: ${color};">${Math.round(score)}</span>
           </div>
-          <div style="background: #e2e8f0; height: 8px; border-radius: 4px; overflow: hidden;">
-            <div style="background: ${color}; height: 100%; width: ${score}%; border-radius: 4px; transition: width 0.5s;"></div>
+          <div style="background: #e2e8f0; height: 10px; border-radius: 5px; overflow: hidden;">
+            <div style="background: ${color}; height: 100%; width: ${score}%; border-radius: 5px; transition: width 0.5s;"></div>
           </div>
         </div>
       `;
@@ -630,7 +693,7 @@
         container.innerHTML = `
           <div style="text-align: center; padding: 60px 20px; color: #94a3b8;">
             <div style="font-size: 48px; margin-bottom: 16px;">📋</div>
-            <p style="font-size: 18px; margin: 0;">ไม่พบข้อมูล</p>
+            <p style="font-size: 18px; margin: 0;">ยังไม่มีข้อมูล</p>
           </div>
         `;
         return;
@@ -652,18 +715,19 @@
             </thead>
             <tbody>
               ${filtered.map(student => {
-                const riskColor = student.risk_level === 'ดี' ? '#16a34a' : student.risk_level === 'ควรพัฒนา' ? '#ea580c' : '#dc2626';
-                const riskBg = student.risk_level === 'ดี' ? '#dcfce7' : student.risk_level === 'ควรพัฒนา' ? '#ffedd5' : '#fee2e2';
+                const riskColor = student.risk_level === 'ดี' ? '#10b981' : student.risk_level === 'ควรพัฒนา' ? '#ea580c' : '#dc2626';
+                const riskBg = student.risk_level === 'ดี' ? '#d1fae5' : student.risk_level === 'ควรพัฒนา' ? '#ffedd5' : '#fee2e2';
+                const riskIcon = student.risk_level === 'ดี' ? '✅' : student.risk_level === 'ควรพัฒนา' ? '⚠️' : '🚨';
                 
                 return `
                   <tr style="border-bottom: 1px solid #e2e8f0;">
                     <td style="padding: 16px; color: #1e293b; font-weight: 500;">${student.student_name} ${student.student_surname}</td>
                     <td style="padding: 16px; color: #64748b;">${student.student_id}</td>
                     <td style="padding: 16px; color: #64748b;">${student.class_level}</td>
-                    <td style="padding: 16px; text-align: center; font-weight: 600; color: ${riskColor}; font-size: 18px;">${Math.round(student.overall_score)}</td>
+                    <td style="padding: 16px; text-align: center; font-weight: 700; color: ${riskColor}; font-size: 20px;">${Math.round(student.overall_score)}</td>
                     <td style="padding: 16px; text-align: center;">
-                      <span style="background: ${riskBg}; color: ${riskColor}; padding: 6px 12px; border-radius: 12px; font-size: 13px; font-weight: 600;">
-                        ${student.risk_level}
+                      <span style="background: ${riskBg}; color: ${riskColor}; padding: 6px 14px; border-radius: 12px; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+                        ${riskIcon} ${student.risk_level}
                       </span>
                     </td>
                     <td style="padding: 16px; text-align: center; color: #64748b; font-size: 14px;">${new Date(student.assessment_date).toLocaleDateString('th-TH')}</td>
@@ -714,8 +778,8 @@
     function showToast(message, type) {
       const toast = document.createElement('div');
       toast.className = 'toast';
-      toast.style.background = type === 'success' ? '#dcfce7' : '#fee2e2';
-      toast.style.color = type === 'success' ? '#166534' : '#991b1b';
+      toast.style.background = type === 'success' ? '#d1fae5' : '#fee2e2';
+      toast.style.color = type === 'success' ? '#065f46' : '#991b1b';
       toast.style.fontWeight = '600';
       toast.textContent = message;
       
@@ -729,5 +793,5 @@
 
     init();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a8852fbe2f6ce9b',t:'MTc2NDgyMDA2NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a885ea3814ace9b',t:'MTc2NDgyMDU0Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
